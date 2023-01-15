@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private float test = 10;
+    private float test = 5;
     void Start()
     {
         
