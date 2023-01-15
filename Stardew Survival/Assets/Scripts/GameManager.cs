@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int abc;
-
-    public float silmang2ya;
-    public float silmang2ya2;
-
     void Start()
     {
         
