@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MouseSelect : MonoBehaviour
 {
     // Å¸ÀÏ¸Ê ÁÂÇ¥ ¾ò±â ½Ãµµ Áß
-    public Grid grid;
-    public Vector3Int gridPosition;
-    public Vector3 mousePosition;
+    public GridLayout grid;
+    public Tilemap farmTile;
+    public TileBase changeTile;
+
+    private Vector3Int cellPosition;
+    private Vector3 mousePosition;
+    private Vector3 offset = new Vector3(0.5f, 0.5f, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +23,15 @@ public class MouseSelect : MonoBehaviour
     void Update()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        gridPosition = grid.WorldToCell(mousePosition);
-        //Debug.Log(gridPosition);
-        //mousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));
-        transform.position = gridPosition;
+        cellPosition = grid.WorldToCell(mousePosition);
+        transform.position = cellPosition + offset;
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(farmTile.GetTile(cellPosition).name == "Desert _6")
+            {
+                farmTile.SetTile(cellPosition, changeTile);
+            }
+        }
     }
 }
