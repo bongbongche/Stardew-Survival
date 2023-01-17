@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("DayChange")]
     public bool isDay = true;                               //낮이면 true
+    public int dayCount;
     public float nightTime = 5.0f;                          // 낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
     public float nightTimer = 0f;
     public DayManager dayManager;
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();
-
+        dayCount = 0;
     }
 
     void Update()
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         else
         {
             isDay = true;
+            dayCount++;
             dayManager.TurnsToDay();
         }
     }//DayChange() 사용 시 낮, 밤 변경. 이후 세부적인 내용은 DayManager 스크립트로 조정
