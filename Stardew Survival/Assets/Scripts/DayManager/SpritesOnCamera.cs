@@ -24,7 +24,6 @@ public class SpritesOnCamera : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     void Update()
