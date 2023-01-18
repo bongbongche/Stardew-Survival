@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 1763329674}
-  day: {r: 1, g: 1, b: 1, a: 0.16470589}
+  day: {r: 1, g: 1, b: 1, a: 0}
   night: {r: 0.028301895, g: 0.00013349982, b: 0.00013349982, a: 0.80784315}
 --- !u!212 &1763329674
 SpriteRenderer:
