@@ -5,8 +5,8 @@ using UnityEngine;
 public class Home : MonoBehaviour
 {
     [Header("다른 스크립트와 연결")]
-    public DayManager dayManager;
-    public GameManager gameManager;
+    private DayManager dayManager;
+    private GameManager gameManager;
 
     public bool isClick;
     //클릭 1회만 작동되게
