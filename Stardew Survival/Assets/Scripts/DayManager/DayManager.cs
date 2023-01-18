@@ -8,19 +8,23 @@ public class DayManager : MonoBehaviour
     [Header("밤낮음영")]
     public SpritesOnCamera spriteOnCamera; // 유니티에서 연결
 
+    [Header("다른 스크립트들과 연결")]
+    private PlayerController playerController;
+
     [Header("다른 시설들과 연결")]
     public GameObject home;
     public GameObject shop;
 
     [Header("플레이어와 연결")]
-    public GameObject player;
+    private GameObject player;
     public GameObject playerLight;
 
 
     void Start()
     {
-        playerLight = player.transform.Find("LightOnPlayer").gameObject;
+        player = GameObject.Find("Player");
         playerLight.SetActive(false);
+        playerController = player.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -37,6 +41,7 @@ public class DayManager : MonoBehaviour
 
 
         playerLight.SetActive(true);                //플레이어 주변 불 밝힘
+        playerController.playerMode = 9;            //플레이어 모드 변경
 
         spriteOnCamera.ColorToNight();
     }//밤이 될 때 작동시키는 것들
@@ -49,6 +54,7 @@ public class DayManager : MonoBehaviour
         shop.SetActive(true);                       // 상점과 연결
 
         playerLight.SetActive(false);               //플레이어 주변 불 끔
+        playerController.playerMode = 1;            //플레이어 모드 변경
 
         spriteOnCamera.ColorToDay();
     }//낮이 될 때 작동시키는 것들
