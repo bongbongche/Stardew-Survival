@@ -37,7 +37,7 @@ public class Garden : MonoBehaviour
             switch(playerController.playerMode)
             {
                 case 1:
-                    if (gardenMode !=0 && gardenMode % 3 == 0)
+                    if (gardenMode != 0 && gardenMode % 3 == 0)
                     { 
                         gameManager.playerMoney += gardenPrice[gardenMode / 3 - 1];
                         gardenMode = 0;
