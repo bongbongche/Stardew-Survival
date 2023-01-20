@@ -18,24 +18,12 @@ public class GameManager : MonoBehaviour
     //플레이어 돈과 씨앗 3가지 소지, 비료
 
     [Header("DayChange")]
-    public bool isDay = true;                   //낮이면 true
+    public bool isDay = true;                               //낮이면 true
     public int dayCount;
-    public float nightTime = 5.0f;              //낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
+    public float nightTime = 5.0f;                          // 낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
     public float nightTimer = 0f;
     public DayManager dayManager;
     public Home home;
-
-    [Header("GardenStatus")]
-    public int[] gardenPrice = new int[3];      //3단계의 가치
-    public float[] gardenMaxHpArr = new float[10];  //밭의 최대 HP 배열
-
-    [Header("SpawnManager & Enemy")]
-    public float spawnRate;                     //적 스폰 간격 (스폰 사이의 시간간격)
-    public float dropFertilizerRate;            //비료 드랍률 (하루에 몇 개 정도?) 
-
-    public float enemyMaxHp;                    //적의 최대 HP, 이것도 day 지날수록 늘리기?
-    public float enemyDps;                      //초당 데미지를 얼마나 줄지
-    public float enemySpeed;                    //적의 스피드
 
     void Start()
     {

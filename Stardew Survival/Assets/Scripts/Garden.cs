@@ -14,45 +14,21 @@ public class Garden : MonoBehaviour
     public Sprite[] gardenSprite;
 
     [Header("Garden의 스테이터스")]
-    private int[] gardenPrice;      
-    private float[] gardenMaxHpArr;
-    //gameManager에서 가져옴
+    public int[] gardenPrice = new int[3]; // 3단계의 가치
+    public int[] gardenMaxHpArr = new int[10]; // 밭의 최대 HP 배열
 
-    private float gardenMaxHp; // 밭의 현재 최대 HP
-    public float gardenPresentHp; // 밭의 현재 HP
+    private int gardenMaxHp; // 밭의 현재 최대 HP
+    public int gardenPresentHp; // 밭의 현재 HP
 
     void Start()
     {
         gardenMode = 0;
-        gameObject.tag = "EmptyGarden";
-        //시작 시 빈 밭 설정
-
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        //스크립트 연결
-
-        gardenPrice = gameManager.gardenPrice;
-        gardenMaxHpArr = gameManager.gardenMaxHpArr;
-        //게임매니저와 값 연결
-
         gardenSpriteRenderer = GetComponent<SpriteRenderer>();
         gardenSpriteRenderer.sprite = gardenSprite[gardenMode];
-        //가든 스프라이트
     }
 
-    private void Update()
-    {
-        if (gardenPresentHp < gardenMaxHp && gameManager.isDay)
-            gardenPresentHp = gardenMaxHp;
-        // 낮되면 자동회복 (밤에 hp바 필요할 듯)
-
-        if (gardenPresentHp < 0 && !gameManager.isDay && gardenMode !=0 )
-        {
-            gardenMode = 0;
-            GardenChange();
-        }
-        // 밤에 식물 Hp 다 깎이면 모드 0으로 변경 (이 때는 공격대상 아니게, tag EmptyGarden 으로)
-    }
 
     private void OnMouseDown()
     {
@@ -109,12 +85,6 @@ public class Garden : MonoBehaviour
         gardenSpriteRenderer.sprite = gardenSprite[gardenMode];
         gardenMaxHp = gardenMaxHpArr[gardenMode];
         gardenPresentHp = gardenMaxHp;
-
-        if (gardenMode != 0)
-            gameObject.tag = "Garden";
-        else
-            gameObject.tag = "EmptyGarden";
-
     }
 
 }
