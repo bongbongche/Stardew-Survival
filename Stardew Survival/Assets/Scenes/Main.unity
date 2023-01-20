@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 2379113}
   slotNumber: 
+  isClicked: 0
 --- !u!61 &2379112
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -290,7 +291,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2379111}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: sayHi
+        m_MethodName: clickMarking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1249,6 +1250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 570814093}
   slotNumber: 
+  isClicked: 0
 --- !u!61 &570814092
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1321,7 +1323,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 570814091}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: sayHi
+        m_MethodName: clickMarking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1502,6 +1504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 628462659}
   slotNumber: 
+  isClicked: 0
 --- !u!61 &628462658
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1574,7 +1577,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 628462657}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: sayHi
+        m_MethodName: clickMarking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3197,6 +3200,7 @@ GameObject:
   - component: {fileID: 1376938678}
   - component: {fileID: 1376938677}
   - component: {fileID: 1376938676}
+  - component: {fileID: 1376938679}
   m_Layer: 5
   m_Name: Bag
   m_TagString: Untagged
@@ -3291,6 +3295,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376938674}
   m_CullTransparentMesh: 1
+--- !u!114 &1376938679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376938674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cd11d6f0157024db271cc07dbcb841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedSlotNumber: 
+  preSelectedSlotNumber: 
+  slots:
+  - {fileID: 628462659}
+  - {fileID: 1878923616}
+  - {fileID: 1603995847}
+  - {fileID: 570814093}
+  - {fileID: 2379113}
 --- !u!1 &1405589286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,6 +3892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 1603995847}
   slotNumber: 
+  isClicked: 0
 --- !u!61 &1603995846
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3940,7 +3965,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1603995845}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: sayHi
+        m_MethodName: clickMarking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4581,6 +4606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 1878923616}
   slotNumber: 
+  isClicked: 0
 --- !u!61 &1878923615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4653,7 +4679,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1878923614}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: sayHi
+        m_MethodName: clickMarking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
