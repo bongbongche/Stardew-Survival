@@ -11,10 +11,10 @@ public class GameManager : MonoBehaviour
 
     [Header("PlayerResource")]
     public int playerMoney;
+    public int playerFertilizer;
     public int playerSeed1;
     public int playerSeed2;
     public int playerSeed3;
-    public int playerFertilizer;
     //ÇÃ·¹ÀÌ¾î µ·°ú ¾¾¾Ñ 3°¡Áö ¼ÒÁö, ºñ·á
 
     [Header("DayChange")]
