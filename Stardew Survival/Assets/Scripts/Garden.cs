@@ -7,6 +7,7 @@ public class Garden : MonoBehaviour
     [Header("다른 스크립트 연결")]
     private GameManager gameManager;
     private PlayerController playerController;
+    private MouseSelect mouseSelect;
 
     [Header("밭의 현재 상태 및 스프라이트 관리")]
     private int gardenMode; // 0: 아무것도 없음 , seed1: 123, seed2: 456, seed3: 789
@@ -25,6 +26,7 @@ public class Garden : MonoBehaviour
         gardenMode = 0;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        mouseSelect = GameObject.Find("Player").transform.Find("Select").GetComponent<MouseSelect>();
         gardenSpriteRenderer = GetComponent<SpriteRenderer>();
         gardenSpriteRenderer.sprite = gardenSprite[gardenMode];
     }
@@ -32,7 +34,8 @@ public class Garden : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (gameManager.isDay)
+        // 낮일 때, 플레이어와 거리가 가까울 때만 가능
+        if (gameManager.isDay && mouseSelect.isActivated == true)
         {
             switch(playerController.playerMode)
             {

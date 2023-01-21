@@ -32,6 +32,7 @@ public class BagManager : MonoBehaviour
     // 슬롯 활성화
     public void ActivateSlot(int slotNumber)
     {
+        // 나중에 원하는 색으로 변환 필요
         colorBlock.normalColor = colorBlock.selectedColor = Color.black;
         slots[slotNumber - 1].colors = colorBlock;
     }

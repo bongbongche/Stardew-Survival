@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,7 +38,8 @@ public class GameManager : MonoBehaviour
     public float enemyDps;                          //
     public float enemySpeed;                        //
 
-
+    [Header("UI")]
+    public TextMeshProUGUI moneyText;
 
     void Start()
     {
@@ -50,6 +52,8 @@ public class GameManager : MonoBehaviour
         playerSeed3 = 5;
         playerFertilizer = 5;
         //게임 시작 시 주어지는 초기 물품, 임시적용
+
+        moneyText.text = "$: " + playerMoney;
     }
 
     void Update()
@@ -61,6 +65,9 @@ public class GameManager : MonoBehaviour
             else
                 DayChange();
         }
+
+        // 플레이어 소지금 업데이트
+        moneyText.text = "$: " + playerMoney;
     }
 
     public void DayChange()

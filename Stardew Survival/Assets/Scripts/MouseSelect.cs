@@ -13,9 +13,11 @@ public class MouseSelect : MonoBehaviour
     private Vector3 mousePosition;
     private Vector3 offset = new Vector3(0.5f, 0.5f, 0);
     public bool onGarden;
+    public bool isActivated;
     // Start is called before the first frame update
     void Start()
     {
+        // 나중에 스프라이트 변경 필요
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
     }
@@ -30,6 +32,7 @@ public class MouseSelect : MonoBehaviour
         {
             // 커서가 플레이어와 일정거리 떨어졌을 때는 무조건 비활성화
             spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+            isActivated = false;
         }
         else
         {
@@ -37,11 +40,13 @@ public class MouseSelect : MonoBehaviour
             {
                 // 커서가 플레이어와 일정거리 안이고 커서도 밭 위에 있을 때 활성화 
                 spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+                isActivated = true;
             }
             else
             {
                 // 커서가 플레이어와 일정거리 안이지만 커서가 밭 밖에 있을 때 비활성화
                 spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+                isActivated = false;
             }
         }
         
