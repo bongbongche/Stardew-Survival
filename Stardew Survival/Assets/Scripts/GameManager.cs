@@ -25,6 +25,20 @@ public class GameManager : MonoBehaviour
     public DayManager dayManager;
     public Home home;
 
+    [Header("GardenStatus")]
+    public int[] gardenPrice = new int[3];      
+    public float[] gardenMaxHpArr = new float[10];  //
+
+    [Header("SpawnManager & Enemy")]
+    public float spawnRate;                         //
+    public float dropFertilizerRate;                // 
+
+    public float enemyMaxHp;                        //
+    public float enemyDps;                          //
+    public float enemySpeed;                        //
+
+
+
     void Start()
     {
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();

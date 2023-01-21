@@ -4,36 +4,44 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Header("asd")]
+    [Header("Script Connect")]
     private GameManager gameManager;
     private DayManager dayManager;
 
-    [Header("abs")]
+    [Header("Spawn Manage")]
     public GameObject enemy; // 
     private float spawnTimer;
+    private float spawnRate;
     private int randArea; // 0,1,2,3
     private float randX;
     private float randY;
     private Vector3 randPosition;
 
+    [Header("Spawn Switch")]
+    public bool spawnActive;
+
     void Start()
     {
+        spawnActive = false;
         spawnTimer = 0;
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        SpawnTimerUpdate();
     }
 
     void Update()
     {
-        if (spawnTimer <= 0.1f)
+        if (spawnActive)
         {
-            //spawnTimer = gameManager.spawnRate;
-            RandomSpawn();
+            if (spawnTimer <= 0.1f)
+            {
+                spawnTimer = spawnRate;
+                RandomSpawn();
+            }
+            else
+                spawnTimer -= Time.deltaTime;
         }
-        else
-        {
-            spawnTimer -= Time.deltaTime;
-        }
+
     }
 
     private void RandomSpawn()
@@ -62,5 +70,9 @@ public class SpawnManager : MonoBehaviour
         Instantiate(enemy, randPosition, Quaternion.identity);
     }
 
+    public void SpawnTimerUpdate()
+    {
+        spawnRate = gameManager.spawnRate;
+    }
 
 }

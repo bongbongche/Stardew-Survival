@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("")]
+    [Header("Script Connect")]
     private GameManager gameManager;
     private DayManager dayManager;
 
@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     {
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        //enemyPresentHp = gameManager.enemyMaxHp;
+        enemyPresentHp = gameManager.enemyMaxHp;
     }
 
     void Update()
@@ -26,9 +26,7 @@ public class Enemy : MonoBehaviour
         closeObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Garden"));
         if (closeObjects.Count == 0)
             closeObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
-        //MoveEnemy(closeObjects[0].transform.position, gameManager.enemySpeed);
-
-
+        MoveEnemy(closeObjects[0].transform.position, gameManager.enemySpeed);
 
         if (enemyPresentHp < 0)
         {
