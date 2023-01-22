@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
-    private Rigidbody2D playerRb;
+    public Rigidbody2D playerRb;
     private GameManager gameManagerScript;
     // Start is called before the first frame update
 
@@ -17,10 +17,11 @@ public class PlayerController : MonoBehaviour
     // 밤 : 9 = 밤
 
     public bool playerActive;
-    // 상점 이용시 또는 비료 결산 시 등의 상황에 플레이어 움직이지 못하도록, 아직은 추가 X, 필요시 추가 예정
+    // 상점 이용시 또는 비료 결산 시 등의 상황에 플레이어 움직이지 못하도록
 
     void Start()
     {
+        playerActive = true;
         playerRb = GetComponent<Rigidbody2D>();
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
@@ -33,8 +34,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerMove();
-        PlayerModeChange();
+        if (playerActive)
+        {
+            PlayerMove();
+            PlayerModeChange();
+        } // 상점 이용시 이동 X
     }
 
     // 플레이어 이동

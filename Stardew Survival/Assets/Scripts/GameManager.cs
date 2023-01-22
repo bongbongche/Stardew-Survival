@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
     //플레이어 돈과 씨앗 3가지 소지, 비료
 
     [Header("DayChange")]
-    public bool isDay = true;                               //낮이면 true
+    public bool isDay = true;                       //낮이면 true
     public int dayCount;
-    public float nightTime = 5.0f;                          // 낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
+    public float nightTime = 5.0f;                  // 낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
     public float nightTimer = 0f;
     public DayManager dayManager;
     public Home home;
@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     public float enemyMaxHp;                        //
     public float enemyDps;                          //
     public float enemySpeed;                        //
+
+    [Header("Shop")]
+    public int[] sellSeedPrice = new int[3];        // 0: seed1 가격, 1: seed 2가격, 2: seed3 가격
+
 
     [Header("UI")]
     public TextMeshProUGUI moneyText;
