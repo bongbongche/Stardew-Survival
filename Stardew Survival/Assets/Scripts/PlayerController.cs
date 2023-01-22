@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public float currentPlayerHP;
-
-    private float horizontalInput;
-    private float verticalInput;
     public Rigidbody2D playerRb;
+
+    private Vector2 movementInput, pointerInput, playerDirection;
+    private WeaponParent weaponParent;
     private GameManager gameManagerScript;
+    private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
 
     public int playerMode;
@@ -19,10 +21,15 @@ public class PlayerController : MonoBehaviour
     public bool playerActive;
     // 상점 이용시 또는 비료 결산 시 등의 상황에 플레이어 움직이지 못하도록
 
+    [SerializeField]
+    private InputActionReference movement, attack, pointerPosition;
+
     void Start()
     {
         playerActive = true;
         playerRb = GetComponent<Rigidbody2D>();
+        weaponParent = GetComponentInChildren<WeaponParent>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         // game manager에 저장되어있는 플레이어 최대 체력을 가져옴
@@ -34,6 +41,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        pointerInput = GetPointerInput();
+        weaponParent.PointerPosition = pointerInput;
+
+        playerDirection = (pointerInput - (Vector2)(transform.position)).normalized;
+        Vector2 scale = transform.localScale;
+        if(playerDirection.x < 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if(playerDirection.x > 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+
         if (playerActive)
         {
             PlayerMove();
@@ -44,11 +65,19 @@ public class PlayerController : MonoBehaviour
     // 플레이어 이동
     private void PlayerMove()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        movementInput = movement.action.ReadValue<Vector2>().normalized;
 
-        playerRb.velocity = new Vector2(horizontalInput * gameManagerScript.playerSpeed, playerRb.velocity.y);
-        playerRb.velocity = new Vector2(playerRb.velocity.x, verticalInput * gameManagerScript.playerSpeed);
+        playerRb.velocity = new Vector2(movementInput.x * gameManagerScript.playerSpeed, playerRb.velocity.y);
+        playerRb.velocity = new Vector2(playerRb.velocity.x, movementInput.y * gameManagerScript.playerSpeed);
+    }
+
+    // 마우스 위치 불러오기
+    private Vector2 GetPointerInput()
+    {
+        Vector3 mousePosition = pointerPosition.action.ReadValue<Vector2>();
+        mousePosition.z = Camera.main.nearClipPlane;
+
+        return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
 
