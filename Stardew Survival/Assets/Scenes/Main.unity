@@ -1426,7 +1426,7 @@ MonoBehaviour:
   playerMode: 0
   playerActive: 0
   movement: {fileID: 9149016050188104032, guid: 59b5ec159b48c8a4baecf19e9bbf4ea1, type: 3}
-  shoot: {fileID: 1884844547765240170, guid: 59b5ec159b48c8a4baecf19e9bbf4ea1, type: 3}
+  attack: {fileID: 0}
   pointerPosition: {fileID: -5242984305414963837, guid: 59b5ec159b48c8a4baecf19e9bbf4ea1, type: 3}
 --- !u!50 &462947235
 Rigidbody2D:
