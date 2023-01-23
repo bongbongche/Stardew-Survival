@@ -19,6 +19,7 @@ public class LookAtMouse : MonoBehaviour
         RotateToMouseDirection();
     }
 
+    // 무기가 마우스를 바라보게 함.
     private void RotateToMouseDirection()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

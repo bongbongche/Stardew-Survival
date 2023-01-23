@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private InputActionReference movement, attack, pointerPosition;
-
+    
+    // 마우스 클릭에 따라 공격
     private void OnEnable()
     {
         attack.action.performed += PerformAttack;
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 마우스 포인터의 위치를 업데이트
         pointerInput = GetPointerInput();
         weaponParent.PointerPosition = pointerInput;
 
