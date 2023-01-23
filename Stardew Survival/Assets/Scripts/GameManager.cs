@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     public float playerSpeed = 6.0f;
     public float maxPlayerHP = 100f;
+    public float attackDelay = 0.3f;
+    public float attackSpeed = 0.5f;
 
     [Header("PlayerResource")]
     public int playerMoney;

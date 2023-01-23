@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,21 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private InputActionReference movement, attack, pointerPosition;
+
+    private void OnEnable()
+    {
+        attack.action.performed += PerformAttack;
+    }
+
+    private void OnDisable()
+    {
+        attack.action.performed -= PerformAttack;
+    }
+
+    private void PerformAttack(InputAction.CallbackContext obj)
+    {
+        weaponParent.Attack();
+    }
 
     void Start()
     {
@@ -98,6 +114,5 @@ public class PlayerController : MonoBehaviour
                 playerMode = 5;
         }
     }
-
 
 }
