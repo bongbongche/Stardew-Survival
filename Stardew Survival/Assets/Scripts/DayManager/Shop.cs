@@ -12,12 +12,15 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI seedprice1;
     public TextMeshProUGUI seedprice2;
     public TextMeshProUGUI seedprice3;
+    public TextMeshProUGUI upgradeWeaponPrice;
+    public TextMeshProUGUI upgradeWeaponMod;
 
 
     [Header("Script Connect")]
     private GameManager gameManager;
     private PlayerController playerController;
     public GameObject warning;
+    public WeaponParent weaponParent;
     private float warningTimer;
 
     void Start()
@@ -29,6 +32,8 @@ public class Shop : MonoBehaviour
         seedprice1.text = "Price: " + gameManager.sellSeedPrice[0];
         seedprice2.text = "Price: " + gameManager.sellSeedPrice[1];
         seedprice3.text = "Price: " + gameManager.sellSeedPrice[2];
+        upgradeWeaponPrice.text = "Price: " + gameManager.upgradeWeaponPrice[0];
+        upgradeWeaponMod.text = "0 -> 1";
     }
 
     private void Update()
@@ -84,6 +89,39 @@ public class Shop : MonoBehaviour
         else
             warningTimer = 0.7f;
     }
+    public void UpgradeWeapon()
+    {
+        if (playerController.weaponModeOnPlayerControl < 2)
+        {
+            switch (playerController.weaponModeOnPlayerControl)
+            {
+                case 0:
+                    if (gameManager.playerMoney >= gameManager.upgradeWeaponPrice[0])
+                    {
+                        gameManager.playerMoney -= gameManager.upgradeWeaponPrice[0];
+                        playerController.weaponModeOnPlayerControl++;
+                        upgradeWeaponPrice.text = "Price: " + gameManager.upgradeWeaponPrice[1];
+                        upgradeWeaponMod.text = "1 -> 2";
+                    }
+                    else
+                        warningTimer = 0.7f;
+                    break;
+                case 1:
+                    if (gameManager.playerMoney >= gameManager.upgradeWeaponPrice[1])
+                    {
+                        gameManager.playerMoney -= gameManager.upgradeWeaponPrice[1];
+                        playerController.weaponModeOnPlayerControl++;
+                        upgradeWeaponPrice.text = "Price: X";
+                        upgradeWeaponMod.text = "Upgrade Done!";
+                    }
+                    else
+                        warningTimer = 0.7f;
+                    break;
+            }
+        }
+    }
+    
+
 
     public void ShopExit()
     {

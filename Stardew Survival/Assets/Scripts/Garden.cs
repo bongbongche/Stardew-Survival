@@ -18,19 +18,52 @@ public class Garden : MonoBehaviour
     public int[] gardenPrice = new int[3]; // 3단계의 가치
     public int[] gardenMaxHpArr = new int[10]; // 밭의 최대 HP 배열
 
-    private int gardenMaxHp; // 밭의 현재 최대 HP
-    public int gardenPresentHp; // 밭의 현재 HP
+    private float gardenMaxHp; // 밭의 현재 최대 HP
+    public float gardenPresentHp; // 밭의 현재 HP
+
+    [Header("Garden의 HP바 구현")]
+    public GameObject hpBar;
+    public GameObject hpBarBackground;
 
     void Start()
     {
         gardenMode = 0;
+        transform.tag = "EmptyGarden";
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         mouseSelect = GameObject.Find("Player").transform.Find("Select").GetComponent<MouseSelect>();
         gardenSpriteRenderer = GetComponent<SpriteRenderer>();
         gardenSpriteRenderer.sprite = gardenSprite[gardenMode];
+        
+        hpBar = transform.GetChild(0).gameObject;
+        hpBarBackground = transform.GetChild(1).gameObject;
     }
 
+    private void Update()
+    {
+        if (gardenMode != 0)
+        {
+            if (gardenPresentHp < gardenMaxHp && !gameManager.isDay)
+            {
+                hpBar.GetComponent<SpriteRenderer>().enabled = true;
+                hpBarBackground.GetComponent<SpriteRenderer>().enabled = true;
+                hpBar.transform.localScale = new Vector2 (0.8f * gardenPresentHp / gardenMaxHp, 0.15f);
+                hpBar.transform.position = hpBarBackground.transform.position - new Vector3(0.4f - (0.8f * gardenPresentHp / gardenMaxHp)/2, 0,0);
+            }
+            if (gardenPresentHp <= 0)
+            {
+                gardenMode = 0;
+                GardenChange();
+            }      
+        }
+
+        if(gardenMode == 0)
+        {
+            hpBar.GetComponent<SpriteRenderer>().enabled = false;
+            hpBarBackground.GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+    }
 
     private void OnMouseDown()
     {
@@ -88,6 +121,12 @@ public class Garden : MonoBehaviour
         gardenSpriteRenderer.sprite = gardenSprite[gardenMode];
         gardenMaxHp = gardenMaxHpArr[gardenMode];
         gardenPresentHp = gardenMaxHp;
+        if (gardenMode == 0)
+            transform.tag = "EmptyGarden";
+        else
+            transform.tag = "Garden";
     }
+
+
 
 }

@@ -66,7 +66,7 @@ public class MouseSelect : MonoBehaviour
     // 가든과 충돌하면 스프라이트 색 활성화
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Garden")
+        if (collision.gameObject.tag == "Garden" || collision.gameObject.tag == "EmptyGarden")
         {
             onGarden = true;
             spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
@@ -76,7 +76,7 @@ public class MouseSelect : MonoBehaviour
     // 가든과 충돌이 끝나면 스프라이트 색 비활성화
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Garden")
+        if (collision.gameObject.tag == "Garden" || collision.gameObject.tag == "EmptyGarden")
         {
             onGarden = false;
             spriteRenderer.color = new Color(1f, 1f, 1f, 0f);

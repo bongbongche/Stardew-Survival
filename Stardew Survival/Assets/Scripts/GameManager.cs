@@ -47,22 +47,24 @@ public class GameManager : MonoBehaviour
 
     [Header("GardenStatus")]
     public int[] gardenPrice = new int[3];      
-    public float[] gardenMaxHpArr = new float[10];  //
+    public float[] gardenMaxHpArr = new float[10];  
 
     [Header("SpawnManager & Enemy")]
-    public float spawnRate;                         //
-    public float dropFertilizerRate;                // 
-
-    public float enemyMaxHp;                        //
-    public float enemyDps;                          //
-    public float enemySpeed;                        //
+    public float    spawnRate;
+    public int      enemyKillCount;
+    public int      getFertilizerPerKill;
+    public float    enemyMaxHp;                        
+    public float    enemyDps;                          
+    public float    enemySpeed;
+    private int randomBalance;
 
     [Header("Shop")]
     public int[] sellSeedPrice = new int[3];        // 0: seed1 가격, 1: seed 2가격, 2: seed3 가격
-
+    public int[] upgradeWeaponPrice = new int[2];   // 0: 0->1, 1: 1->2 
 
     [Header("UI")]
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI dayText;
 
     void Start()
     {
@@ -77,6 +79,8 @@ public class GameManager : MonoBehaviour
         //게임 시작 시 주어지는 초기 물품, 임시적용
 
         moneyText.text = "$: " + playerMoney;
+        dayText.text = "Day: " + dayCount;
+        enemyKillCount = 0;
     }
 
     void Update()
@@ -108,4 +112,25 @@ public class GameManager : MonoBehaviour
             dayManager.TurnsToDay();
         }
     }//DayChange() 사용 시 낮, 밤 변경. 이후 세부적인 내용은 DayManager 스크립트로 조정
+
+    public void DayBalance()
+    {
+        randomBalance = Random.Range(0, 3);
+        switch (randomBalance)
+        {
+            case 0:
+                enemyMaxHp *= 1.05f;
+                break;
+            case 1:
+                enemySpeed *= 1.05f;
+                break;
+            case 2:
+                enemyDps *= 1.05f;
+                break;
+            case 3:
+                spawnRate *= 0.95f;
+                break;
+        }
+    }//DayBalance() 사용 시, 난이도 증가(날짜가 지날수록 난이도 증가)
+    //임시, 변경가능
 }

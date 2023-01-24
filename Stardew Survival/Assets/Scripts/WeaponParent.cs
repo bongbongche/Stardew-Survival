@@ -53,6 +53,7 @@ public class WeaponParent : MonoBehaviour
         // 애니메이션 속도 조절. 일정 속도 이상으로 빨라지지는 않는데 왜지
         animator.SetFloat("AttackSpeed", gameManager.attackSpeed);
 
+        weaponMode = player.GetComponent<PlayerController>().weaponModeOnPlayerControl;
         // 무기에 따라 스펙 변경
         if(weaponMode == 0)
         {

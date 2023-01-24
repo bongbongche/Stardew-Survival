@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float currentPlayerHP;
     public WeaponParent weaponParent;
     public Rigidbody2D playerRb;
+    public int weaponModeOnPlayerControl;
 
     private Vector2 movementInput, pointerInput, playerDirection;
     private GameManager gameManagerScript;
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
         // game manager에 저장되어있는 플레이어 최대 체력을 가져옴
         currentPlayerHP = gameManagerScript.maxPlayerHP;
+        
+        weaponModeOnPlayerControl = 0;
 
         playerMode = 1;
     }
