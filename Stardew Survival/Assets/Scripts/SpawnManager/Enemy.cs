@@ -14,10 +14,13 @@ public class Enemy : MonoBehaviour
     [Header("Enemy AI")]
     public List<GameObject> closeObjects;
 
+    private Rigidbody2D enemyRb;
+
     void Start()
     {
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        enemyRb = GetComponent<Rigidbody2D>();
         enemyPresentHp = gameManager.enemyMaxHp;
     }
 
@@ -28,7 +31,7 @@ public class Enemy : MonoBehaviour
             closeObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         MoveEnemy(closeObjects[0].transform.position, gameManager.enemySpeed);
 
-        if (enemyPresentHp < 0)
+        if (enemyPresentHp <= 0)
         {
             Destroy(gameObject);
         }
@@ -37,6 +40,12 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        // 플레이어가 밀면 velocity 값이 변하는 것을 방지 
+        enemyRb.velocity = Vector2.zero;
     }
 
 

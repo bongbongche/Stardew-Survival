@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float currentPlayerHP;
+    public WeaponParent weaponParent;
     public Rigidbody2D playerRb;
 
     private Vector2 movementInput, pointerInput, playerDirection;
-    private WeaponParent weaponParent;
     private GameManager gameManagerScript;
     private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -38,14 +38,14 @@ public class PlayerController : MonoBehaviour
 
     private void PerformAttack(InputAction.CallbackContext obj)
     {
-        weaponParent.Attack();
+        if(gameManagerScript.isDay == false)
+            weaponParent.Attack();
     }
 
     void Start()
     {
         playerActive = true;
         playerRb = GetComponent<Rigidbody2D>();
-        weaponParent = GetComponentInChildren<WeaponParent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
@@ -58,12 +58,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 낮일 때만 무기 활성화
+        if (gameManagerScript.isDay == false)
+        {
+            weaponParent.gameObject.SetActive(true);
+        }
+        else if (gameManagerScript.isDay == true)
+        {
+            weaponParent.gameObject.SetActive(false);
+        }
+
         // 마우스 포인터의 위치를 업데이트
         pointerInput = GetPointerInput();
         weaponParent.PointerPosition = pointerInput;
 
         playerDirection = (pointerInput - (Vector2)(transform.position)).normalized;
-        Vector2 scale = transform.localScale;
+
+        // 마우스 방향에 따라 플레이어 스프라이트 변경
         if(playerDirection.x < 0)
         {
             spriteRenderer.flipX = false;
@@ -78,6 +89,7 @@ public class PlayerController : MonoBehaviour
             PlayerMove();
             PlayerModeChange();
         } // 상점 이용시 이동 X
+        
     }
 
     // 플레이어 이동

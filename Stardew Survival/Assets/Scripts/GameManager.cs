@@ -20,6 +20,23 @@ public class GameManager : MonoBehaviour
     public int playerSeed3;
     //ÇÃ·¹ÀÌ¾î µ·°ú ¾¾¾Ñ 3°¡Áö ¼ÒÁö, ºñ·á
 
+    [Header("Weapon")]
+    [Space(10f)]
+    public float weapon1Radius;
+    public float weapon1AttackSpeed;
+    public float weapon1Damage;
+    public float weapon1Knockback;
+    [Space(10f)]
+    public float weapon2Radius;
+    public float weapon2AttackSpeed;
+    public float weapon2Damage;
+    public float weapon2Knockback;
+    [Space(10f)]
+    public float weapon3Radius;
+    public float weapon3AttackSpeed;
+    public float weapon3Damage;
+    public float weapon3Knockback;
+
     [Header("DayChange")]
     public bool isDay = true;                       //³·ÀÌ¸é true
     public int dayCount;

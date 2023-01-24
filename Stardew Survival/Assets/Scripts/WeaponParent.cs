@@ -7,13 +7,27 @@ public class WeaponParent : MonoBehaviour
 {
     public Vector2 PointerPosition { get; set; }    // plyaer controller로부터 마우스 위치를 가져옴
     public Animator animator;
+    public Transform circleOrigin;
+    //public Sprite[] weaponSprite;
 
     private bool attackBlocked;
     private GameManager gameManager;
+    private SpriteRenderer weaponSpriteRenderer;
+    private GameObject player;
+
+    public int weaponMode; // 0: 1단계 무기, 1: 2단계 무기, 2: 3단계 무기
+    public float weaponRadius;
+    public float weaponAttackSpeed;
+    public float weaponDamage;
+    public float weaponKnockback;
+
     // Start is called before the first frame update
     void Start()
     {
+        weaponMode = 0;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        weaponSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -38,6 +52,31 @@ public class WeaponParent : MonoBehaviour
 
         // 애니메이션 속도 조절. 일정 속도 이상으로 빨라지지는 않는데 왜지
         animator.SetFloat("AttackSpeed", gameManager.attackSpeed);
+
+        // 무기에 따라 스펙 변경
+        if(weaponMode == 0)
+        {
+            weaponRadius = gameManager.weapon1Radius;
+            weaponAttackSpeed = gameManager.weapon1AttackSpeed;
+            weaponDamage = gameManager.weapon1Damage;
+            weaponKnockback = gameManager.weapon1Knockback;
+        }
+        else if (weaponMode == 1)
+        {
+            weaponRadius = gameManager.weapon2Radius;
+            weaponAttackSpeed = gameManager.weapon2AttackSpeed;
+            weaponDamage = gameManager.weapon2Damage;
+            weaponKnockback = gameManager.weapon2Knockback;
+            weaponSpriteRenderer.color = Color.red;
+        }
+        else if (weaponMode == 2)
+        {
+            weaponRadius = gameManager.weapon3Radius;
+            weaponAttackSpeed = gameManager.weapon3AttackSpeed;
+            weaponDamage = gameManager.weapon3Damage;
+            weaponKnockback = gameManager.weapon3Knockback;
+            weaponSpriteRenderer.color = Color.green;
+        }
     }
 
     // 공격
@@ -55,5 +94,36 @@ public class WeaponParent : MonoBehaviour
     {
         yield return new WaitForSeconds(gameManager.attackDelay);
         attackBlocked = false;
+    }
+
+    // 무기 기즈모 설정
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Vector3 position = circleOrigin == null ? Vector3.zero : circleOrigin.position;
+        Gizmos.DrawWireSphere(position, weaponRadius);
+    }
+
+    // 무기 공격 모션 충돌 감지
+    public void DetectColliders()
+    {
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, weaponRadius))
+        {
+            // 적 피해 입히기 & 넉백
+            if(collider.tag == "Enemy")
+            {
+                collider.gameObject.GetComponent<Enemy>().enemyPresentHp -= weaponDamage;
+                if (player.transform.position.x > collider.transform.position.x)
+                {
+
+                    collider.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-weaponKnockback, 0f));
+                }
+                else
+                {
+                    collider.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(weaponKnockback, 0f));
+                }
+
+            }
+        }
     }
 }
