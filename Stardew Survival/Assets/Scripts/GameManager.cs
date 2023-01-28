@@ -7,6 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
+    public GameObject player;
     public float playerSpeed = 6.0f;
     public float maxPlayerHP = 100f;
     public float attackDelay = 0.3f;
@@ -66,6 +67,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI dayText;
 
+    // 플레이어 움직임 제한할 범위
+    private float xBound = 8.5f;
+    private float yBound = 5f;
+    private float playerSpriteLength = 1.2f;
+
     void Start()
     {
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();
@@ -95,6 +101,24 @@ public class GameManager : MonoBehaviour
 
         // 플레이어 소지금 업데이트
         moneyText.text = "$: " + playerMoney;
+
+        // 플레이어 이동 범위 제한
+        if (player.transform.position.x > xBound)
+        {
+            player.transform.position = new Vector3(xBound, player.transform.position.y, 0);
+        }
+        if (player.transform.position.x < -xBound)
+        {
+            player.transform.position = new Vector3(-xBound, player.transform.position.y, 0);
+        }
+        if (player.transform.position.y > yBound - playerSpriteLength)
+        {
+            player.transform.position = new Vector3(player.transform.position.x, yBound - playerSpriteLength, 0);
+        }
+        if (player.transform.position.y < -yBound)
+        {
+            player.transform.position = new Vector3(player.transform.position.x, -yBound, 0);
+        }
     }
 
     public void DayChange()
