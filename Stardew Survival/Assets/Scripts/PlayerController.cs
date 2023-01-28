@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
     private void PerformAttack(InputAction.CallbackContext obj)
     {
         if(gameManagerScript.isDay == false)
+        {
             weaponParent.Attack();
+        }
     }
 
     void Start()

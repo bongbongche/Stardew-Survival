@@ -8,7 +8,6 @@ public class WeaponParent : MonoBehaviour
     public Vector2 PointerPosition { get; set; }    // plyaer controller로부터 마우스 위치를 가져옴
     public Animator animator;
     public Transform circleOrigin;
-    //public Sprite[] weaponSprite;
 
     private bool attackBlocked;
     private GameManager gameManager;
@@ -78,13 +77,22 @@ public class WeaponParent : MonoBehaviour
             weaponKnockback = gameManager.weapon3Knockback;
             weaponSpriteRenderer.color = Color.green;
         }
+
+        // 낮되면 공격 방지 초기화
+        if(gameManager.isDay == true)
+        {
+            attackBlocked = false;
+        }
     }
 
     // 공격
     public void Attack()
     {
         if (attackBlocked)
+        {
+            Debug.Log("clicked");
             return;
+        }
         animator.SetTrigger("Attack");
         attackBlocked = true;
         StartCoroutine(DelayAttack());
