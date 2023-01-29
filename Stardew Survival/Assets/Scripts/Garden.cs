@@ -13,6 +13,7 @@ public class Garden : MonoBehaviour
     private int gardenMode; // 0: 아무것도 없음 , seed1: 123, seed2: 456, seed3: 789
     private SpriteRenderer gardenSpriteRenderer;
     public Sprite[] gardenSprite;
+    private BoxCollider2D gardenTouch;
 
     [Header("Garden의 스테이터스")]
     public int[] gardenPrice = new int[3]; // 3단계의 가치
@@ -20,6 +21,7 @@ public class Garden : MonoBehaviour
 
     private float gardenMaxHp; // 밭의 현재 최대 HP
     public float gardenPresentHp; // 밭의 현재 HP
+    public bool getFertilizer;
 
     [Header("Garden의 HP바 구현")]
     public GameObject hpBar;
@@ -27,6 +29,7 @@ public class Garden : MonoBehaviour
 
     void Start()
     {
+        getFertilizer = true;
         gardenMode = 0;
         transform.tag = "EmptyGarden";
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -34,13 +37,17 @@ public class Garden : MonoBehaviour
         mouseSelect = GameObject.Find("Player").transform.Find("Select").GetComponent<MouseSelect>();
         gardenSpriteRenderer = GetComponent<SpriteRenderer>();
         gardenSpriteRenderer.sprite = gardenSprite[gardenMode];
-        
+        gardenTouch = transform.GetChild(2).GetComponent<BoxCollider2D>();
+        gardenTouch.enabled = false;
         hpBar = transform.GetChild(0).gameObject;
         hpBarBackground = transform.GetChild(1).gameObject;
+        
     }
 
     private void Update()
     {
+        if (gardenMode != 0 && gameManager.isDay && gardenPresentHp < gardenMaxHp)
+            gardenPresentHp = gardenMaxHp;
         if (gardenMode != 0)
         {
             if (gardenPresentHp < gardenMaxHp && !gameManager.isDay)
@@ -56,19 +63,25 @@ public class Garden : MonoBehaviour
                 GardenChange();
             }      
         }
-
-        if(gardenMode == 0)
+        if(gardenMode == 0 || gameManager.isDay)
         {
             hpBar.GetComponent<SpriteRenderer>().enabled = false;
             hpBarBackground.GetComponent<SpriteRenderer>().enabled = false;
         }
+        if (!gameManager.isDay && !getFertilizer)
+            getFertilizer = true;
+        if (gameManager.isDay)
+            gardenTouch.enabled = false;
+        else if (!gameManager.isDay && gardenMode != 0)
+            gardenTouch.enabled = true;
+
 
     }
 
     private void OnMouseDown()
     {
         // 낮일 때, 플레이어와 거리가 가까울 때만 가능
-        if (gameManager.isDay && mouseSelect.isActivated == true)
+        if (gameManager.isDay && mouseSelect.isActivated == true && getFertilizer == true)
         {
             switch(playerController.playerMode)
             {
@@ -85,6 +98,7 @@ public class Garden : MonoBehaviour
                     {
                         gardenMode++;
                         gameManager.playerFertilizer--;
+                        getFertilizer = false;
                         GardenChange();
                     }
                     break;
@@ -122,9 +136,15 @@ public class Garden : MonoBehaviour
         gardenMaxHp = gardenMaxHpArr[gardenMode];
         gardenPresentHp = gardenMaxHp;
         if (gardenMode == 0)
+        {
             transform.tag = "EmptyGarden";
+            gardenTouch.enabled = false;
+        }
         else
+        {
             transform.tag = "Garden";
+            gardenTouch.enabled = true;
+        }
     }
 
 

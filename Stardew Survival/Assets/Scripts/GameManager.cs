@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [Header("DayChange")]
     public bool isDay = true;                       //낮이면 true
     public int dayCount;
-    public float nightTime = 5.0f;                  // 낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
+    public float nightTime = 30.0f;                  // 낮 = 제한시간 X, 밤 = 일정시간 이후 낮으로
     public float nightTimer = 0f;
     public DayManager dayManager;
     public Home home;
@@ -66,6 +66,14 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI dayText;
+
+    [Header("Daybalance(%)")]
+    public float balanceEnemyHp;
+    public float balanceEnemySpeed;
+    public float balanceEnemyDps;
+    public float balanceEnemySpawnRate;
+
+
 
     // 플레이어 움직임 제한할 범위
     private float xBound = 8.5f;
@@ -94,7 +102,10 @@ public class GameManager : MonoBehaviour
         if(!isDay)
         {
             if (nightTimer >= 0.1f)
+            {
                 nightTimer -= Time.deltaTime;
+
+            }
             else
                 DayChange();
         }
@@ -143,18 +154,18 @@ public class GameManager : MonoBehaviour
         switch (randomBalance)
         {
             case 0:
-                enemyMaxHp *= 1.05f;
+                enemyMaxHp *= (1 + balanceEnemyHp / 100);
                 break;
             case 1:
-                enemySpeed *= 1.05f;
+                enemySpeed *= (1 + balanceEnemySpeed / 100);
                 break;
             case 2:
-                enemyDps *= 1.05f;
+                enemyDps *= (1 + balanceEnemyDps / 100);
                 break;
             case 3:
-                spawnRate *= 0.95f;
+                spawnRate *= (1 - balanceEnemySpawnRate / 100);
                 break;
         }
     }//DayBalance() 사용 시, 난이도 증가(날짜가 지날수록 난이도 증가)
-    //임시, 변경가능
+    //임시, 변경가능, 수치 위로 올리기
 }
