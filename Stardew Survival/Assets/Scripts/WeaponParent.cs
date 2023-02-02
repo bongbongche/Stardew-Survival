@@ -9,10 +9,10 @@ public class WeaponParent : MonoBehaviour
     public Animator animator;
     public Transform circleOrigin;
 
-    private bool attackBlocked;
     private GameManager gameManager;
     private SpriteRenderer weaponSpriteRenderer;
     private GameObject player;
+    private PlayerController playerController;
 
     public int weaponMode; // 0: 1단계 무기, 1: 2단계 무기, 2: 3단계 무기
     public float weaponRadius;
@@ -27,6 +27,7 @@ public class WeaponParent : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         weaponSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -77,24 +78,17 @@ public class WeaponParent : MonoBehaviour
             weaponKnockback = gameManager.weapon3Knockback;
             weaponSpriteRenderer.color = Color.green;
         }
-
-        // 낮되면 공격 방지 초기화
-        if(gameManager.isDay == true)
-        {
-            attackBlocked = false;
-        }
     }
 
     // 공격
     public void Attack()
     {
-        if (attackBlocked)
+        if (playerController.attackBlocked)
         {
-            Debug.Log("clicked");
             return;
         }
         animator.SetTrigger("Attack");
-        attackBlocked = true;
+        playerController.attackBlocked = true;
         StartCoroutine(DelayAttack());
     }
 
@@ -102,7 +96,7 @@ public class WeaponParent : MonoBehaviour
     private IEnumerator DelayAttack()
     {
         yield return new WaitForSeconds(gameManager.attackDelay);
-        attackBlocked = false;
+        playerController.attackBlocked = false;
     }
 
     // 무기 기즈모 설정

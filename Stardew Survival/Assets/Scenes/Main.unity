@@ -846,16 +846,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 462947231}
   playerSpeed: 6
-  maxPlayerHP: 100
+  maxPlayerHP: 10
   attackDelay: 0.3
   attackSpeed: 0.5
-  playerMoney: 0
+  playerMoney: 10
   playerFertilizer: 0
   playerSeed1: 0
   playerSeed2: 0
   playerSeed3: 0
   weapon1Radius: 0.4
-  weapon1AttackSpeed: 0.5
+  weapon1AttackSpeed: 1
   weapon1Damage: 30
   weapon1Knockback: 500
   weapon2Radius: 0.5
@@ -884,7 +884,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  spawnRate: 0.8
+  spawnRate: 2
   enemyKillCount: 0
   getFertilizerPerKill: 3
   enemyMaxHp: 60
@@ -2061,6 +2061,7 @@ MonoBehaviour:
   weaponParent: {fileID: 2012836141}
   playerRb: {fileID: 0}
   weaponModeOnPlayerControl: 0
+  attackBlocked: 0
   playerMode: 0
   playerActive: 0
   movement: {fileID: 9149016050188104032, guid: 59b5ec159b48c8a4baecf19e9bbf4ea1, type: 3}

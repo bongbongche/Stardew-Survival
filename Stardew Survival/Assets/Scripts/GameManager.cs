@@ -85,13 +85,6 @@ public class GameManager : MonoBehaviour
         dayManager = GameObject.Find("Day Manager").GetComponent<DayManager>();
         dayCount = 0;
 
-        playerMoney = 10;
-        playerSeed1 = 5;
-        playerSeed2 = 5;
-        playerSeed3 = 5;
-        playerFertilizer = 5;
-        //게임 시작 시 주어지는 초기 물품, 임시적용
-
         moneyText.text = "$: " + playerMoney;
         dayText.text = "Day: " + dayCount;
         enemyKillCount = 0;

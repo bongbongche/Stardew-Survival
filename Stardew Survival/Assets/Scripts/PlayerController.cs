@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public WeaponParent weaponParent;
     public Rigidbody2D playerRb;
     public int weaponModeOnPlayerControl;
+    public bool attackBlocked;
 
     private Vector2 movementInput, pointerInput, playerDirection;
     private GameManager gameManagerScript;
@@ -94,7 +95,13 @@ public class PlayerController : MonoBehaviour
             PlayerMove();
             PlayerModeChange();
         } // 상점 이용시 이동 X
-        
+
+
+        // 낮되면 공격 방지 초기화
+        if (gameManagerScript.isDay == true && attackBlocked == true)
+        {
+            attackBlocked = false;
+        }
     }
 
     // 플레이어 이동
