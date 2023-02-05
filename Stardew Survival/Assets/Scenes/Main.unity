@@ -1024,10 +1024,10 @@ MonoBehaviour:
   getFertilizerPerKill: 3
   enemyMaxHp: 60
   enemyDps: 2
-  enemySpeed: 1
-  sellSeedPrice: 010000000300000005000000
-  upgradeWeaponPrice: 0100000002000000
-  sellFertilizerPrice: 2
+  enemySpeed: 2.5
+  sellSeedPrice: 0a0000001e00000032000000
+  upgradeWeaponPrice: c800000090010000
+  sellFertilizerPrice: 5
   moneyText: {fileID: 770065839}
   dayText: {fileID: 1233446459}
   balanceEnemyHp: 5
@@ -10472,14 +10472,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 90719836}
     m_Modifications:
-    - target: {fileID: 766387024322346636, guid: 6f068b763f5190e4e8e59a0ab73ec076, type: 3}
-      propertyPath: m_Size.y
-      value: 0.3941926
-      objectReference: {fileID: 0}
-    - target: {fileID: 766387024322346636, guid: 6f068b763f5190e4e8e59a0ab73ec076, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.3029037
-      objectReference: {fileID: 0}
     - target: {fileID: 6447487287713797782, guid: 6f068b763f5190e4e8e59a0ab73ec076, type: 3}
       propertyPath: m_RootOrder
       value: 0
