@@ -12,6 +12,7 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI seedprice1;
     public TextMeshProUGUI seedprice2;
     public TextMeshProUGUI seedprice3;
+    public TextMeshProUGUI fertilizerprice;
     public TextMeshProUGUI upgradeWeaponPrice;
     public TextMeshProUGUI upgradeWeaponMod;
 
@@ -32,6 +33,7 @@ public class Shop : MonoBehaviour
         seedprice1.text = "Price: " + gameManager.sellSeedPrice[0];
         seedprice2.text = "Price: " + gameManager.sellSeedPrice[1];
         seedprice3.text = "Price: " + gameManager.sellSeedPrice[2];
+        fertilizerprice.text = "Price: " + gameManager.sellFertilizerPrice;
         upgradeWeaponPrice.text = "Price: " + gameManager.upgradeWeaponPrice[0];
         upgradeWeaponMod.text = "0 -> 1";
     }
@@ -85,6 +87,16 @@ public class Shop : MonoBehaviour
         {
             gameManager.playerMoney -= gameManager.sellSeedPrice[2];
             gameManager.playerSeed3++;
+        }
+        else
+            warningTimer = 0.7f;
+    }
+    public void SellFertilizer()
+    {
+        if (gameManager.playerFertilizer > 0)
+        {
+            gameManager.playerMoney += gameManager.sellFertilizerPrice;
+            gameManager.playerFertilizer--;
         }
         else
             warningTimer = 0.7f;

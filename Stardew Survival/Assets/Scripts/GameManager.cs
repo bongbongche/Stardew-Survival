@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     [Header("Shop")]
     public int[] sellSeedPrice = new int[3];        // 0: seed1 가격, 1: seed 2가격, 2: seed3 가격
     public int[] upgradeWeaponPrice = new int[2];   // 0: 0->1, 1: 1->2 
+    public int   sellFertilizerPrice;
 
     [Header("UI")]
     public TextMeshProUGUI moneyText;
